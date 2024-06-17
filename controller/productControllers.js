@@ -51,6 +51,7 @@ const createProduct = async (req,res) => {
 
         
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             success : false,
             message : "Internal server error"
@@ -66,7 +67,7 @@ const getProducts = async (req,res) => {
         const allProducts = await Products.find({});
         res.json({
             success : true,
-            message : "All products fetched successfully!",
+            message : "Products fetched successfully",
             products : allProducts
         })
         
@@ -195,6 +196,19 @@ const deleteProduct = async (req,res) =>{
         })
     }
 }
+const getAllProducts = async (req, res) => {
+    try {
+      const listOfProducts = await Products.find();
+      res.json({
+        success: true,
+        message: "Products fetched successfully",
+        products: listOfProducts,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json("Server Error");
+    }
+  };
 
 
 module.exports = {
@@ -202,5 +216,6 @@ module.exports = {
     getProducts,
     getSingleProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getAllProducts
 }
